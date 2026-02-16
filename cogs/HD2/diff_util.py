@@ -455,7 +455,7 @@ async def detect_loggable_changes(
         "id32",
         QueueAll,
         batch,
-        ["retrieved_at", "time_delta", "self"],
+        ["retrieved_at", "time_delta", "self","currentValue"],
         game_time=gametime,
     )
     logs.debug("campaigns detection, stand by...")
