@@ -275,7 +275,7 @@ async def ai_message_invoke(
     # Convert into a list of messages
     mes = [c.to_dict() for c in chain]
     # create new ChatCreation
-    chat = gptmod.ChatCreation(presence_penalty=0.3, messages=[])
+    chat = gptmod.ChatCreation( messages=[])
     # ,model="gpt-5-mini"
     np = nikkiprompt
     if JSONMODE:
