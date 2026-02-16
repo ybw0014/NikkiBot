@@ -185,7 +185,7 @@ async def group_documents(docs: List[Document], max_tokens=3000):
             gui.gprint(doc.page_content)
             context += doc.page_content + "  "
         tokens = util.num_tokens_from_messages(
-            [{"role": "system", "content": context}], "gpt-4o-mini"
+            [{"role": "system", "content": context}], "gpt-5-mini"
         )
         if tokens >= max_tokens:
             gui.gprint("token break")
