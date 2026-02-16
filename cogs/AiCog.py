@@ -305,19 +305,22 @@ async def ai_message_invoke(
             DummyMessage("."),
             chat,
         )
-    for f in mes[:5]:  # Load old messags into ChatCreation
+    for f in mes[:5]:  # Load old messages into ChatCreation
         chat.add_message(f["role"], f["content"])
-    # Load current message into chat creation.
-    chat.add_message("user", message.content)
+
+    
+    content = message.content
+    clean_content = re.sub(r'<@!?\d+>|<@&\d+>', '', content)
+    chat.add_message("user", clean_content)
     gui.dprint(len(chat.messages))
     # Load in functions
     forcecheck = None
     if mylib != None:
-        forcecheck = mylib.force_word_check(message.content)
+        forcecheck = mylib.force_word_check(clean_content)
         if forcecheck:
             chat.tools = forcecheck
             chat.tool_choice = forcecheck[0]
-        elif find_urls(message.content):
+        elif find_urls(clean_content):
             chat.tools = mylib.get_tool_schema()
             chat.tool_choice = {"type": "function", "function": {"name": "read_url"}}
         else:
@@ -344,7 +347,7 @@ async def ai_message_invoke(
         thread_id=thread_id,
         role="user",
         name=re.sub(r"[^a-zA-Z0-9_]", "", user.name),
-        content=message.clean_content,
+        content=clean_content,#message.clean_content,
     )
     # Add
     if tools:
