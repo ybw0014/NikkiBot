@@ -6,7 +6,7 @@ from typing import List, Tuple
 
 import lancedb
 from htmldate import find_date
-from langchain.docstore.document import Document
+from langchain_core.documents.document import Document
 from langchain_openai import OpenAIEmbeddings
 from tqdm.asyncio import tqdm_asyncio
 

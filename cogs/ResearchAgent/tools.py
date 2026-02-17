@@ -7,7 +7,7 @@ from typing import Any, AsyncGenerator, List, Tuple, Union, Optional
 import openai
 from googleapiclient.discovery import build  # Import the library
 from gptfunctionutil import AILibFunction, GPTFunctionLibrary, LibParam
-from langchain.docstore.document import Document
+from langchain_core.documents.document import Document
 
 
 import gptmod

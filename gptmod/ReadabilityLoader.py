@@ -3,7 +3,7 @@
 import json
 import logging
 import langchain_community.document_loaders as dl
-from langchain.docstore.document import Document
+from langchain_core.documents.document import Document
 import asyncio
 import datetime
 import re

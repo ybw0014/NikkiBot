@@ -20,7 +20,7 @@ from .storage_tools import (
     store_many_splits,
 )
 
-from langchain.docstore.document import Document
+from langchain_core.documents.document import Document
 
 # I need the readability npm package to work
 from utility import select_emoji
