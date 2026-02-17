@@ -9,7 +9,7 @@ from typing import Any, Dict, List
 import discord
 from discord.ext import commands
 from gptfunctionutil import AILibFunction, GPTFunctionLibrary, LibParamSpec
-from langchain_core.documents.document import Document
+from langchain_core.documents import Document
 
 
 import threading
