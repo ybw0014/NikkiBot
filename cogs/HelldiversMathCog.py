@@ -110,7 +110,8 @@ def resource_graph():
     plt.title("Tracking the resource numbers", color="white")
 
     # ---- PLOT ----
-    plt.plot(XE, YE, marker="+")
+    plt.plot(XE, YE, marker=".",
+    markersize=1)
 
     # ---- SPINES ----
     for spine in ax.spines.values():
