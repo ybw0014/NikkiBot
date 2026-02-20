@@ -143,7 +143,7 @@ def rate_of_change_graph():
     
     df25 = df25[df25["changePerSecond"] >= -8000]
     # Plotting
-    plt.figure(figsize=(50, 12), facecolor="black")
+    plt.figure(figsize=(50*2, 12*2), facecolor="black")
     ax = plt.gca()
     
     ax.set_facecolor("black")
