@@ -418,6 +418,64 @@ class ResearchCogStore(commands.Cog, TC_Cog_Mixin):
         for i in splits[0:3]:
             await ctx.send(f"```{str(i.page_content)}```"[:1980], suppress_embeds=True)
 
+    @commands.command(
+        name="summarize_link", description="make a summary of a url.", extras={}
+    )
+    @oai_check()
+    @ai_rate_check()
+    async def summarize_link(
+        self, ctx: commands.Context, url: str, over: bool = False, additional: str = ""
+    ):
+        """Download the reader mode view of a passed in URL, and summarize it."""
+        async with self.lock:
+            message = ctx.message
+            guild = message.guild
+            user = message.author
+
+            mes = await ctx.channel.send(
+                "<a:LoadingBlue:1206301904863502337> Reading Article <a:LoadingBlue:1206301904863502337>"
+            )
+            try:
+                article, header = await read_article(ctx.bot.jsenv, url)
+            except Exception as e:
+                await mes.edit(
+                    content="I couldn't read the link, sorry.  It might be too large."
+                )
+                raise e
+            await mes.delete()
+
+            async with ctx.channel.typing():
+               splits, e, dat = await ra.tools.read_and_split_link(ctx.bot, url)
+            article=""
+            for s in splits:
+                article+=str(s.page_content)+"\n"
+            
+            prompt = generate_article_metatemplate(header)
+            sources = []
+            mylinks = extract_masked_links(article)
+            for link in mylinks:
+                link_text, url4 = link
+                link_text = link_text.replace("_", "")
+                gui.dprint(link_text, url4)
+                sources.append(f"[{link_text}]({url4})")
+            prompt = prompt + additional
+            await ctx.send(prompt, suppress_embeds=True)
+            try:
+                all = ""
+                async with ctx.channel.typing():
+                    async for result in ra.tools.summarize(prompt, article, mylinks):
+                        splitorder = ["%s\n", "%s.", "%s,", "%s "]
+                        fil = prioritized_string_split(result, splitorder, 4072)
+                        title = header.get("title", "notitle")
+                        for p in fil:
+                            embed = discord.Embed(title=title, description=p)
+                            await ctx.send(embed=embed)
+                        all += result
+
+            except Exception as e:
+                await ctx.bot.send_error(e)
+                return await ctx.send(e)
+            
     @commands.is_owner()
     @commands.command(name="loadmany")
     @oai_check()
