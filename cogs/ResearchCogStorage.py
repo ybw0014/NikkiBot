@@ -445,10 +445,10 @@ class ResearchCogStore(commands.Cog, TC_Cog_Mixin):
             await mes.delete()
 
             async with ctx.channel.typing():
-               splits, e, dat = await ra.tools.read_and_split_link(ctx.bot, url)
-            article=""
-            for s in splits:
-                article+=str(s.page_content)+"\n"
+                splits, e, dat = await ra.tools.read_and_split_link(ctx.bot, url)
+                article=""
+                for s in splits:
+                    article+=str(s.page_content)+"\n"
             
             prompt = generate_article_metatemplate(header)
             sources = []
