@@ -171,6 +171,8 @@ def rate_of_change_graph():
         df25["changePerSecond"],
         label="Rate of Change Per Minute",
         color="blue",
+        marker="+",
+         linewidth=0.5
     )
 
     plt.ylabel("Rate of Change", color="white", fontproperties=terminal_font)
