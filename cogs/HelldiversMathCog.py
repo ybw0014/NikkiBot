@@ -145,7 +145,22 @@ def rate_of_change_graph():
     # Plotting
     plt.figure(figsize=(50, 12), facecolor="black")
     ax = plt.gca()
+    
     ax.set_facecolor("black")
+    ax.xaxis.set_major_locator(mdates.DayLocator(interval=1))      # major tick: each day
+    ax.xaxis.set_minor_locator(mdates.HourLocator(interval=1))     # minor tick: each hour
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+
+    ax.tick_params(axis="x", which="major", length=10, color="white")
+    ax.tick_params(axis="x", which="minor", length=4, color="gray")
+
+    # ---- TICKS & GRID ----
+    plt.xticks(color="white", fontproperties=terminal_font)
+    plt.yticks(color="white", fontproperties=terminal_font)
+
+    ax.grid(True, which="major", color="gray", linestyle="--", linewidth=0.6)
+    ax.grid(True, which="minor", color="gray", linestyle=":", linewidth=0.3)
+
     plt.xticks(color="white", fontproperties=terminal_font)
     plt.yticks(color="white", fontproperties=terminal_font)
     plt.grid(True, color="gray", linestyle="--", linewidth=0.5)
