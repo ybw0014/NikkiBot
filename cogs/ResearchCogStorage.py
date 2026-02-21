@@ -441,6 +441,7 @@ class ResearchCogStore(commands.Cog, TC_Cog_Mixin):
                 await mes.edit(
                     content="I couldn't read the link, sorry.  It might be too large."
                 )
+                header={}
             await mes.delete()
 
             async with ctx.channel.typing():
